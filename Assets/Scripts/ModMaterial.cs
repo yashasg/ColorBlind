@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 static class RendererExtensions
 {
@@ -12,13 +13,16 @@ static class RendererExtensions
 
 public class ModMaterial: MonoBehaviour
 {
-    public Material originMat;
-    public GameObject obj;
-    
+    public GameObject blue;
+    public GameObject green;
+    public GameObject red;
+    List<MeshRenderer> originMR;
+
     Material mat;
 
     Color originalColor;
-    Color matColor;
+    List<Color> matColor;
+    List<Color> newColor;
 
     Matrix4x4 protanopia;
     Matrix4x4 protanomaly;
@@ -29,12 +33,20 @@ public class ModMaterial: MonoBehaviour
     
     void Start()
     {
-        originMat = obj.GetComponent<Renderer>().material;
-        originalColor = originMat.GetColor("_Color");
-        
-        matColor = originMat.GetColor("_Color");
-        
-        obj.GetComponent<Renderer>().material = originMat;
+        originMR = new List<MeshRenderer>();
+        matColor = new List<Color>();
+        newColor = new List<Color>();
+        originMR.Add(blue.GetComponent<MeshRenderer>());
+        originMR.Add(green.GetComponent<MeshRenderer>());
+        originMR.Add(red.GetComponent<MeshRenderer>());
+        foreach (MeshRenderer mr in originMR) {
+            matColor.Add(mr.material.color);
+                }
+
+
+        //originalColor = originMat.GetColor("_Color");
+
+        //  matColor = originMat.GetColor("_Color");
 
         protanopia = new Matrix4x4();
         protanomaly = new Matrix4x4();
@@ -48,9 +60,11 @@ public class ModMaterial: MonoBehaviour
         protanopia.SetRow(0, new Vector4(0.567f, 0.433f, 0.0f, 1.0f));
         protanopia.SetRow(1, new Vector4(0.558f, 0.442f, 0.0f, 1.0f));
         protanopia.SetRow(2, new Vector4(0.0f, 0.242f, 0.758f, 1.0f));
+        protanopia.SetRow(3, new Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+
 
         // Protanomaly:{ R:[81.667, 18.333, 0], G:[33.333, 66.667, 0], B:[0, 12.5, 87.5]},
-        
+
         protanomaly.SetRow(0, new Vector4(0.817f, 0.183f, 0.0f, 1.0f));
         protanomaly.SetRow(1, new Vector4(0.333f, 0.667f, 0.0f, 1.0f));
         protanomaly.SetRow(2, new Vector4(0.0f, 0.125f, 0.875f, 1.0f));
@@ -85,27 +99,37 @@ public class ModMaterial: MonoBehaviour
    
     void RemoveColor(Matrix4x4 matrix)
     {
-        float r = matColor.r * matrix.GetColumn(0).x + matColor.g * matrix.GetColumn(0).y + matColor.b * matrix.GetColumn(0).z + matColor.a * matrix.GetColumn(0).w;
-        float g = matColor.r * matrix.GetColumn(1).x + matColor.g * matrix.GetColumn(1).y + matColor.b * matrix.GetColumn(1).z + matColor.a * matrix.GetColumn(1).w;
-        float b = matColor.r * matrix.GetColumn(2).x + matColor.g * matrix.GetColumn(2).y + matColor.b * matrix.GetColumn(2).z + matColor.a * matrix.GetColumn(2).w;
-        float a = matColor.r * matrix.GetColumn(3).x + matColor.g * matrix.GetColumn(3).y + matColor.b * matrix.GetColumn(3).z + matColor.a * matrix.GetColumn(3).w;
-
-        if (GetComponent<Renderer>().IsVisibleFrom(GameObject.Find("FPSController").GetComponent<Transform>().GetChild(0).GetComponent<Camera>()))
+        foreach (Color matt in matColor)
         {
-            obj.GetComponent<Renderer>().material.SetColor("_Color", new Color(r, g, b, a));
+            float r = matt.r * matrix.GetColumn(0).x + matt.g * matrix.GetColumn(0).y + matt.b * matrix.GetColumn(0).z + matt.a * matrix.GetColumn(0).w;
+            float g = matt.r * matrix.GetColumn(1).x + matt.g * matrix.GetColumn(1).y + matt.b * matrix.GetColumn(1).z + matt.a * matrix.GetColumn(1).w;
+            float b = matt.r * matrix.GetColumn(2).x + matt.g * matrix.GetColumn(2).y + matt.b * matrix.GetColumn(2).z + matt.a * matrix.GetColumn(2).w;
+            float a = matt.r * matrix.GetColumn(3).x + matt.g * matrix.GetColumn(3).y + matt.b * matrix.GetColumn(3).z + matt.a * matrix.GetColumn(3).w;
+            newColor.Add(new Color(r, g, b, a));
         }
-        else
+        //  if (GetComponent<Renderer>().IsVisibleFrom(GameObject.Find("FPSController").GetComponent<Transform>().GetChild(0).GetComponent<Camera>()))
+        // {
+        for (int i= 0;i < originMR.Count;i++)
+            {
+            originMR[i].material.SetColor("_Color", newColor[i]);
+           
+            }
+   //     }
+       /* else
         {
-            obj.GetComponent<Renderer>().material.SetColor("_Color", originalColor);
-        }
+            foreach (MeshRenderer matt in originMR)
+            {
+                matt.material.SetColor("_Color", originMat[0].color);
+            }
+        }*/
     }
     public void Update()
     {
-        RemoveColor(protanopia);
+         // RemoveColor(protanopia);
         //RemoveColor(protanomaly);
         //RemoveColor(deuteranopia);
         //RemoveColor(tritanopia);
-        //RemoveColor(achromatopsia);
-        //RemoveColor(achromatomaly);
+       // RemoveColor(achromatopsia);
+        RemoveColor(achromatomaly);
     }
 }
