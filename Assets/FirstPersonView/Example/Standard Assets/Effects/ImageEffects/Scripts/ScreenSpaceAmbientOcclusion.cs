@@ -17,10 +17,10 @@ namespace UnityStandardAssets.ImageEffects
 
         public float m_Radius = 0.4f;
         public SSAOSamples m_SampleCount = SSAOSamples.Medium;
-        public float m_OcclusionIntensity = 1.5f;
+        public float m_OcclusionIntensity = 0.0f;
         public int m_Blur = 2;
         public int m_Downsampling = 2;
-        public float m_OcclusionAttenuation = 1.0f;
+        public float m_OcclusionAttenuation = 0.0f;
         public float m_MinZ = 0.01f;
 
         public Shader m_SSAOShader;
