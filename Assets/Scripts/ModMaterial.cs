@@ -81,7 +81,7 @@ public class ModMaterial: MonoBehaviour
 
         // Tritanomaly:{ R:[96.667, 3.333, 0], G:[0, 73.333, 26.667], B:[0, 18.333, 81.667]},
 
-        tritanomaly.SetRow(0, new Vector4(0.967f, 0.333f, 0.0f, 1.0f));
+        tritanomaly.SetRow(0, new Vector4(0.967f, 0.0333f, 0.0f, 1.0f));
         tritanomaly.SetRow(1, new Vector4(0.0f, 0.733f, 0.267f, 1.0f));
         tritanomaly.SetRow(2, new Vector4(0.0f, 0.475f, 0.525f, 1.0f));
         tritanomaly.SetRow(3, new Vector4(0.0f, 0.183f, 0.817f, 1.0f)); 
@@ -106,10 +106,10 @@ public class ModMaterial: MonoBehaviour
     void RemoveColor(Matrix4x4 matrix)
     {
         Debug.Log(matt.color.ToString());
-            float r = matColor.r * matrix.GetColumn(0).x + matColor.g * matrix.GetColumn(0).y + matColor.b * matrix.GetColumn(0).z + matColor.a * matrix.GetColumn(0).w;
-            float g = matColor.r * matrix.GetColumn(1).x + matColor.g * matrix.GetColumn(1).y + matColor.b * matrix.GetColumn(1).z + matColor.a * matrix.GetColumn(1).w;
-            float b = matColor.r * matrix.GetColumn(2).x + matColor.g * matrix.GetColumn(2).y + matColor.b * matrix.GetColumn(2).z + matColor.a * matrix.GetColumn(2).w;
-            float a = matColor.r * matrix.GetColumn(3).x + matColor.g * matrix.GetColumn(3).y + matColor.b * matrix.GetColumn(3).z + matColor.a * matrix.GetColumn(3).w;
+            float r = matColor.r * matrix.GetRow(0).x + matColor.g * matrix.GetRow(0).y + matColor.b * matrix.GetRow(0).z;
+        float g = matColor.r * matrix.GetRow(1).x + matColor.g * matrix.GetRow(1).y + matColor.b * matrix.GetRow(1).z;
+            float b = matColor.r * matrix.GetRow(2).x + matColor.g * matrix.GetRow(2).y + matColor.b * matrix.GetRow(2).z;
+            const float a = 1.0f;
            matt.SetColor("_Color", new Color(r, g, b, a));
         Debug.Log(matt.color.ToString());
     }
@@ -117,12 +117,12 @@ public class ModMaterial: MonoBehaviour
     {
         if (this.GetComponent<Renderer>().isVisible)
         {
-            // RemoveColor(protanopia);
-            //RemoveColor(protanomaly);
+             RemoveColor(protanopia);
+           // RemoveColor(protanomaly);
             //RemoveColor(deuteranopia);
-            //RemoveColor(tritanopia);
+           //RemoveColor(tritanopia);
             // RemoveColor(achromatopsia);
-            RemoveColor(achromatomaly);
+            //RemoveColor(achromatomaly);
         }
         else
         {
