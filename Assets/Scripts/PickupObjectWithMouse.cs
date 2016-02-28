@@ -32,8 +32,10 @@ public class PickupObjectWithMouse : MonoBehaviour
 
     {
         o.GetComponent<Rigidbody>().isKinematic = true;
-        o.GetComponent<Transform>().position = mainCamera.GetComponent<Transform>().position + mainCamera.GetComponent<Transform>().forward * distance;
-        //o.GetComponent<Transform>().position = Input.mousePosition + mainCamera.GetComponent<Transform>().forward * distance;
+        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
+        Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        o.GetComponent<Transform>().position = objPosition;
+        //o.GetComponent<Transform>().position = mainCamera.GetComponent<Transform>().position + mainCamera.GetComponent<Transform>().forward * distance;
     }
 
     void release()
