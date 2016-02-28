@@ -20,6 +20,11 @@ public class PickupObjectWithMouse : MonoBehaviour
         release();
         if (carrying)
         {
+            if (carriedObject == null)
+            {
+                carrying = false;
+                return;
+            }
             carry(ref carriedObject);
         }
         else
