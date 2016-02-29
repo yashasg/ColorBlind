@@ -37,7 +37,7 @@ public class PickupObject : MonoBehaviour
 
     void release()
     {
-        if (carrying && Input.GetKeyDown(KeyCode.R))
+        if (carrying && Input.GetMouseButtonDown(1))
         {
             carrying = false;
             carriedObject.GetComponent<Rigidbody>().isKinematic = false;
@@ -46,7 +46,7 @@ public class PickupObject : MonoBehaviour
 
     void pickup()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetMouseButtonDown(0))
 
         {
             int x = Screen.width / 2;
