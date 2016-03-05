@@ -4,10 +4,17 @@ using System.Collections.Generic;
 public class Painting : MonoBehaviour
 {
     Dictionary<string, Color> colorList;
+    GameObject pencilSet;
+    GameObject selected;
+
 	// Use this for initialization
 	void Start ()
     {
+        pencilSet = GameObject.Find("Pencils");
+        selected = GameObject.Find("SelectedPencil");
         colorList = new Dictionary<string, Color>();
+
+        
 
         Color red = new Color(1.0f, 0.0f, 0.0f, 1.0f);
         Color orange = new Color(1.0f, 0.5f, 0.0f, 1.0f);
@@ -28,22 +35,34 @@ public class Painting : MonoBehaviour
 	
     void OnMouseDown()
     {
-        PaintArc();
+        ChangeColor();
+        //if(selected.transform.GetComponent<SpriteRenderer>().color != Color.white)
+        //{
+            PaintArc();
+        //} 
     }
 
-    void PaintArc()
+    void ChangeColor()
     {
        Vector2 mouse2D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
        RaycastHit2D hit = Physics2D.Raycast(mouse2D, new Vector2(transform.position.x, transform.position.y), 0.0f);
 
-        if (hit.collider && transform.GetComponent<SpriteRenderer>().color == Color.white)
+        if (hit.collider.tag == "Pencil")
         {
-            transform.GetComponent<SpriteRenderer>().color = transform.parent.GetComponent<MeshRenderer>().material.color;//colorList[transform.parent.name];
+            selected.transform.GetComponent<SpriteRenderer>().color = pencilSet.transform.Find(transform.parent.name).GetComponent<MeshRenderer>().material.color;
         }
-        else
+    }
+
+    void PaintArc()
+    {
+        Vector2 mouse2D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        RaycastHit2D hit = Physics2D.Raycast(mouse2D, new Vector2(transform.position.x, transform.position.y), 0.0f);
+
+        if (hit.collider.tag == "RainbowArc")
         {
-            transform.GetComponent<SpriteRenderer>().color = Color.white;
+            GetComponent<SpriteRenderer>().color = selected.GetComponent<SpriteRenderer>().color;
         }
     }
 }

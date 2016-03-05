@@ -105,13 +105,11 @@ public class ModMaterial: MonoBehaviour
    
     void RemoveColor(Matrix4x4 matrix)
     {
-        Debug.Log(matt.color.ToString());
-            float r = matColor.r * matrix.GetRow(0).x + matColor.g * matrix.GetRow(0).y + matColor.b * matrix.GetRow(0).z;
+        float r = matColor.r * matrix.GetRow(0).x + matColor.g * matrix.GetRow(0).y + matColor.b * matrix.GetRow(0).z;
         float g = matColor.r * matrix.GetRow(1).x + matColor.g * matrix.GetRow(1).y + matColor.b * matrix.GetRow(1).z;
-            float b = matColor.r * matrix.GetRow(2).x + matColor.g * matrix.GetRow(2).y + matColor.b * matrix.GetRow(2).z;
-            const float a = 1.0f;
-           matt.SetColor("_Color", new Color(r, g, b, a));
-        Debug.Log(matt.color.ToString());
+        float b = matColor.r * matrix.GetRow(2).x + matColor.g * matrix.GetRow(2).y + matColor.b * matrix.GetRow(2).z;
+        const float a = 1.0f;
+        matt.SetColor("_Color", new Color(r, g, b, a));
     }
     public void Update()
     {
