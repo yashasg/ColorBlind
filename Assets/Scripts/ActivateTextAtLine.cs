@@ -24,9 +24,9 @@ public class ActivateTextAtLine : MonoBehaviour {
 	    //raycasting
 	}
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.name == "Player")
+        if (other.name == "FPSController")
         {
             if (requrieButtonPress)
             {
@@ -48,7 +48,7 @@ public class ActivateTextAtLine : MonoBehaviour {
 
     void OnTriggerExit(Collider other)
     {
-        if (other.name == "Player")
+        if (other.name == "FPSController")
         {
             waitForPress = false;
         }

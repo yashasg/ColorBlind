@@ -61,6 +61,7 @@ public class TextBoxManager : MonoBehaviour {
 
         if (currentLine > endAtLine)
         {
+            currentLine -= 1;
             textBox.SetActive(false);
         }
 	}
