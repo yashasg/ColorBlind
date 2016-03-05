@@ -28,21 +28,7 @@ public class ActivateTextAtLine : MonoBehaviour {
     {
         if (other.name == "FPSController")
         {
-            if (requrieButtonPress)
-            {
-                waitForPress = true;
-                return;
-            }
-
-            theTextBox.ReloadScript(theText);
-            theTextBox.currentLine = startLine;
-            theTextBox.endAtLine = endLine;
-            theTextBox.EnableTextBox();
-
-            if (destroyWhenActivated)
-            {
-                Destroy(gameObject);
-            }
+            StartDialog();
         }
     }
 
@@ -51,6 +37,25 @@ public class ActivateTextAtLine : MonoBehaviour {
         if (other.name == "FPSController")
         {
             waitForPress = false;
+        }
+    }
+
+    void StartDialog()
+    {
+        if (requrieButtonPress)
+        {
+            waitForPress = true;
+            return;
+        }
+
+        theTextBox.ReloadScript(theText);
+        theTextBox.currentLine = startLine;
+        theTextBox.endAtLine = endLine;
+        theTextBox.EnableTextBox();
+
+        if (destroyWhenActivated)
+        {
+            Destroy(gameObject);
         }
     }
 }
