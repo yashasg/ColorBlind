@@ -1,15 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PianoKey : MonoBehaviour {
     private bool isDown= false;
     private Vector3 originalPos;
     private Vector3 downPos;
 
+    //Notes
+    public GameObject notePrefab;
+    private List<GameObject> notes = new List<GameObject>();
+    private float hitPos;
+
+
 	// Use this for initialization
 	void Start () {
 	    originalPos = GetComponent<Transform>().position;
         downPos = new Vector3(originalPos.x, originalPos.y - 0.5f, originalPos.z);
+
+        //Notes
+        hitPos = GetComponent<Transform>().position.z + GetComponent<Transform>().localScale.z / 2f;
     }
 	
 	// Update is called once per frame
@@ -18,6 +28,22 @@ public class PianoKey : MonoBehaviour {
         {
             SetKeyUp();
         }
+
+        // Check the notes
+        while (notes.Count > 0)
+        {
+            float frontFacePos = notes[0].GetComponent<Transform>().position.z - notes[0].GetComponent<Transform>().localScale.z / 2;
+            if (frontFacePos < hitPos)
+            {
+                GameObject temp = notes[0];
+                notes.RemoveAt(0);
+                Destroy(temp);
+            } else
+            {
+                break;
+            }
+        }
+
     }
 
     public void SetKeyDown()
@@ -32,5 +58,12 @@ public class PianoKey : MonoBehaviour {
     {
         isDown = false;
         GetComponent<Transform>().position = originalPos;
+    }
+
+    public void AddNote()
+    {
+        GameObject note = GameObject.Instantiate(notePrefab);
+        note.GetComponent<Transform>().position = new Vector3(GetComponent<Transform>().position.x, GetComponent<Transform>().position.y, GetComponent<Transform>().position.z + 5);
+        notes.Add(note);
     }
 }
