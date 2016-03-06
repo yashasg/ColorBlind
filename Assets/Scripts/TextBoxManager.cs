@@ -23,8 +23,9 @@ public class TextBoxManager : MonoBehaviour {
     private int fadeDir = 1;
     private float alpha = 0.0f;
     public float holdTime;
-    private bool isHeld;
+    private bool isHeld = false;
     private float tempHold = 0.0f;
+    private bool isStarted = false;
 
     //public PlayerController player;
 
@@ -76,13 +77,16 @@ public class TextBoxManager : MonoBehaviour {
             }
             else
             {
-                tempHold = 0.0f;
                 isHeld = false;
+                tempHold = 0f;
             }
         }
-        
-        // start showing the first text
-        StartCoroutine(ShowTextWithFading());
+
+        if (!isStarted)
+        {
+            // start showing the first text
+            StartCoroutine(ShowTextWithFading());
+        }
 
         theText.text = textLines[currentLine];
         alpha += fadeDir * fadeSpeed * Time.deltaTime;
@@ -90,7 +94,9 @@ public class TextBoxManager : MonoBehaviour {
         if (alpha >= 1.0f)
         {
             isHeld = true;
+            tempHold = 0f;
             fadeDir = -1;
+            isStarted = false;
         }
         theText.color = new Color (theText.color.r, theText.color.g, theText.color.b, alpha);
         
@@ -106,7 +112,8 @@ public class TextBoxManager : MonoBehaviour {
             // reset the settings
             alpha = 0.0f;
             fadeDir = 1;
-            StartCoroutine(ShowTextWithFading());
+            isStarted = false;
+            // StartCoroutine(ShowTextWithFading());
         }
 
         if (currentLine > endAtLine)
