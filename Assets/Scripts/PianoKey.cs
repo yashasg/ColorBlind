@@ -53,17 +53,24 @@ public class PianoKey : MonoBehaviour {
             GetComponent<Transform>().position = downPos;
         }
 
-        // Check
-        float frontFacePos = notes[0].GetComponent<Transform>().position.z - notes[0].GetComponent<Transform>().localScale.z / 2;
-        float nearFace = hitPos - notes[0].GetComponent<Transform>().localScale.z;
-        float farFace = hitPos + notes[0].GetComponent<Transform>().localScale.z;
-
-        if (frontFacePos > nearFace && frontFacePos < farFace)
+        if (notes.Count > 0)
         {
-            GameObject temp = notes[0];
-            notes.RemoveAt(0);
-            Destroy(temp);
-            return true;
+            // Check
+            float frontFacePos = notes[0].GetComponent<Transform>().position.z - notes[0].GetComponent<Transform>().localScale.z / 2;
+            float nearFace = hitPos - notes[0].GetComponent<Transform>().localScale.z;
+            float farFace = hitPos + notes[0].GetComponent<Transform>().localScale.z;
+
+            if (frontFacePos > nearFace && frontFacePos < farFace)
+            {
+                GameObject temp = notes[0];
+                notes.RemoveAt(0);
+                Destroy(temp);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         } else
         {
             return false;
