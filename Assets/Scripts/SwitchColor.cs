@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SwitchColor: MonoBehaviour
 {
-    GameObject pencilSet;
+    GameObject crayonSet;
     GameObject selected;
     GameObject rainbow;
 
@@ -25,8 +25,8 @@ public class SwitchColor: MonoBehaviour
         colorNames[6] = "Violet";
 
         rainbow = GameObject.Find("Rainbow");
-        pencilSet = GameObject.Find("Pencils");
-        selected = GameObject.Find("SelectedPencil");
+        crayonSet = GameObject.Find("Crayons");
+        selected = GameObject.Find("SelectedCrayon");
 	}
 	
     void Start()
@@ -39,14 +39,20 @@ public class SwitchColor: MonoBehaviour
         Change();
     }
 
+    void OnMouseOver()
+    {
+
+    }
+
     void Change()
     {
-       Vector2 mouse2D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-       RaycastHit2D hit = Physics2D.Raycast(mouse2D, new Vector2(transform.position.x, transform.position.y), 0.0f);
+        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
 
-        if (hit.collider)
+        if (Physics.Raycast(mouseRay, out hit))
         {
-            selected.transform.GetComponent<SpriteRenderer>().color = pencilSet.transform.Find(transform.parent.name).GetComponent<MeshRenderer>().material.color;
+            selected.transform.GetComponent<SpriteRenderer>().color = crayonSet.transform.Find(transform.parent.name).transform.GetChild(0).GetComponent<MeshRenderer>().material.color;
+            selected.name = crayonSet.transform.Find(transform.parent.name).name;
         }
     }
 }
