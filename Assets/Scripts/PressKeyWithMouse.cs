@@ -26,7 +26,14 @@ public class PressKeyWithMouse : MonoBehaviour {
                 PianoKey key = hit.collider.GetComponent<PianoKey>();
                 if (key != null)
                 {
-                    key.SetKeyDown();
+                    if (key.SetKeyDown())
+                    {
+                        print("beat!!!");
+                    }
+                    else
+                    {
+                        print("Miss!!!");
+                    }
                 }
             }
         }
