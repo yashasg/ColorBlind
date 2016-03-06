@@ -48,6 +48,7 @@ public class ActivateTextAtLine : MonoBehaviour {
             return;
         }
 
+        theTextBox.Reset();
         theTextBox.ReloadScript(theText);
         theTextBox.currentLine = startLine;
         theTextBox.endAtLine = endLine;

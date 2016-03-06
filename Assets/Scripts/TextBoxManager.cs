@@ -68,6 +68,7 @@ public class TextBoxManager : MonoBehaviour {
             return;
         }
 
+
         if (isHeld)
         {
             if (tempHold < holdTime)
@@ -113,7 +114,6 @@ public class TextBoxManager : MonoBehaviour {
             alpha = 0.0f;
             fadeDir = 1;
             isStarted = false;
-            // StartCoroutine(ShowTextWithFading());
         }
 
         if (currentLine > endAtLine)
@@ -146,5 +146,15 @@ public class TextBoxManager : MonoBehaviour {
             textLines = new string[1];
             textLines = (theText.text.Split('\n'));
         }
+    }
+    
+    public void Reset()
+    {
+        fadeDir = 1;
+        alpha = 0.0f;
+        //holdTime;
+        isHeld = false;
+        tempHold = 0.0f;
+        isStarted = false;
     }
 }
