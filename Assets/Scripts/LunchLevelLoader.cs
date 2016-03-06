@@ -11,7 +11,7 @@ public class LunchLevelLoader : MonoBehaviour {
     IEnumerator ChangeLevel()
     {
         float fadeTime = GetComponent<Fading>().BeginFade(1);
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(fadeTime);
         Application.LoadLevel(1);
     }
 
