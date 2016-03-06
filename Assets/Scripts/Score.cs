@@ -4,14 +4,17 @@ using UnityEngine.SceneManagement;
 
 public class Score : MonoBehaviour
 {
-    int score;
+    public static int score = 0;
 
     GameObject rainbow;
+    GameObject crayons;
+    GameObject selected;
 
     void Start ()
     {
-        score = 0;
         rainbow = GameObject.Find("Rainbow");
+        crayons = GameObject.Find("Pencils");
+        selected = GameObject.FindWithTag("Selected");
     }
 
     void OnMouseDown()
@@ -30,9 +33,13 @@ public class Score : MonoBehaviour
 
         if (hit.collider)
         {
-            if (hit.collider.GetComponent<SpriteRenderer>().color == Color.white)
+            if (transform.tag == "RainbowArc")
             {
-                score++;
+                if(transform.parent.name == selected.name)
+                {
+                    score++;
+                    selected.name = "Selected";
+                }
             }
         }
         if(Painting.coloredArcs == 7)

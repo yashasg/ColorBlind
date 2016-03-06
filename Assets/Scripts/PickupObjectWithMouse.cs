@@ -62,15 +62,15 @@ public class PickupObjectWithMouse : MonoBehaviour
             Ray ray = mainCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             // if the ray hits some thing
-            if (Physics.Raycast(ray, out hit))
-            {
-                Pickupable p = hit.collider.GetComponent<Pickupable>();
-                if (p != null)
-                {
-                    carrying = true;
-                    carriedObject = p.gameObject;
-                }
-            }
+        //    if (Physics.Raycast(ray, out hit))
+        //    {
+        //        Pickupable p = hit.collider.GetComponent<Pickupable>();
+        //        if (p != null)
+        //        {
+        //            carrying = true;
+        //            carriedObject = p.gameObject;
+        //        }
+        //    }
         }
     }
 }
