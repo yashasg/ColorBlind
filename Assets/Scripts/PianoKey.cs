@@ -11,7 +11,16 @@ public class PianoKey : MonoBehaviour {
     public GameObject notePrefab;
     private List<GameObject> notes = new List<GameObject>();
     private float hitPos;
+    // This could be public
+    private float hitPanelOffset = 0.2f;
+    private float noteHalfLen = 0.25f;
+    private float clickRange = 0.5f;
 
+    // Scores
+    private int numOfNotes = 0;
+    private int score = 0;
+    private float bm2 = 0.6f;
+    private float bm1 = 0.3f;
 
 	// Use this for initialization
 	void Start () {
@@ -19,7 +28,7 @@ public class PianoKey : MonoBehaviour {
         downPos = new Vector3(originalPos.x, originalPos.y - 0.5f, originalPos.z);
 
         //Notes
-        hitPos = GetComponent<Transform>().position.z + GetComponent<Transform>().localScale.z / 2f;
+        hitPos = GetComponent<Transform>().position.z + GetComponent<Transform>().localScale.z / 2f + hitPanelOffset;
     }
 	
 	// Update is called once per frame
@@ -32,12 +41,15 @@ public class PianoKey : MonoBehaviour {
         // Check the notes
         while (notes.Count > 0)
         {
-            float frontFacePos = notes[0].GetComponent<Transform>().position.z - notes[0].GetComponent<Transform>().localScale.z / 2;
+            float frontFacePos = notes[0].GetComponent<Transform>().position.z - noteHalfLen;
             if (frontFacePos < hitPos - 2)
             {
+
                 GameObject temp = notes[0];
                 notes.RemoveAt(0);
                 Destroy(temp);
+
+                numOfNotes++;
             } else
             {
                 break;
@@ -45,35 +57,48 @@ public class PianoKey : MonoBehaviour {
         }
     }
 
-    public bool SetKeyDown()
+    public float SetKeyDown()
     {
-        if (isDown == false)
-        {
-            isDown = true;
-            GetComponent<Transform>().position = downPos;
-        }
 
         if (notes.Count > 0)
         {
             // Check
-            float frontFacePos = notes[0].GetComponent<Transform>().position.z - notes[0].GetComponent<Transform>().localScale.z / 2;
-            float nearFace = hitPos - notes[0].GetComponent<Transform>().localScale.z;
-            float farFace = hitPos + notes[0].GetComponent<Transform>().localScale.z;
+            float scaleZ = notes[0].GetComponent<Transform>().localScale.z;
+            float frontFacePos = notes[0].GetComponent<Transform>().position.z -  scaleZ/ 2;
+            float nearFace = hitPos - scaleZ;
+            float farFace = hitPos + scaleZ;
 
             if (frontFacePos > nearFace && frontFacePos < farFace)
             {
+                if (isDown == false)
+                {
+                    isDown = true;
+                    GetComponent<Transform>().position = downPos;
+                }
                 GameObject temp = notes[0];
                 notes.RemoveAt(0);
                 Destroy(temp);
-                return true;
+                // cal the score
+                float accruracy = 1f - (Mathf.Abs(hitPos - frontFacePos) / scaleZ);
+                numOfNotes++;
+                if (accruracy >= bm1)
+                {
+                    score++;
+                }
+                if (accruracy >= bm2)
+                {
+                    score++;
+                }
+
+                return 1f - (Mathf.Abs(hitPos - frontFacePos)/scaleZ);
             }
             else
             {
-                return false;
+                return -1f;
             }
         } else
         {
-            return false;
+            return -1f;
         }
     }
     public void SetKeyUp()
@@ -87,5 +112,10 @@ public class PianoKey : MonoBehaviour {
         GameObject note = GameObject.Instantiate(notePrefab);
         note.GetComponent<Transform>().position = new Vector3(GetComponent<Transform>().position.x, GetComponent<Transform>().position.y, GetComponent<Transform>().position.z + zPos);
         notes.Add(note);
+    }
+
+    public float GetScore()
+    {
+        return ((float)score) / ((float)numOfNotes);
     }
 }
