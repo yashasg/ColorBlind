@@ -18,8 +18,6 @@ public class ModMaterial: MonoBehaviour
     //  public GameObject red;
     Material matt;
     Color matColor;
-    Color newColor;
-
     Matrix4x4 protanopia;
     Matrix4x4 protanomaly;
     Matrix4x4 deuteranopia;
@@ -33,7 +31,6 @@ public class ModMaterial: MonoBehaviour
     {
         matt = this.GetComponent<MeshRenderer>().material;
         matColor = this.GetComponent<MeshRenderer>().material.color;
-        newColor = new Color();
         //originalColor = originMat.GetColor("_Color");
 
         //  matColor = originMat.GetColor("_Color");
@@ -99,30 +96,32 @@ public class ModMaterial: MonoBehaviour
         achromatomaly.SetRow(2, new Vector4(0.163f, 0.32f, 0.516f, 1.0f));
         achromatomaly.SetRow(3, new Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
-       
+       //replace shader
+
+
  
     }
    
     void RemoveColor(Matrix4x4 matrix)
     {
-        Debug.Log(matt.color.ToString());
+       // Debug.Log(matt.color.ToString());
             float r = matColor.r * matrix.GetRow(0).x + matColor.g * matrix.GetRow(0).y + matColor.b * matrix.GetRow(0).z;
         float g = matColor.r * matrix.GetRow(1).x + matColor.g * matrix.GetRow(1).y + matColor.b * matrix.GetRow(1).z;
             float b = matColor.r * matrix.GetRow(2).x + matColor.g * matrix.GetRow(2).y + matColor.b * matrix.GetRow(2).z;
             const float a = 1.0f;
            matt.SetColor("_Color", new Color(r, g, b, a));
-        Debug.Log(matt.color.ToString());
+      //  Debug.Log(matt.color.ToString());
     }
     public void Update()
-    {
+    { 
         if (this.GetComponent<Renderer>().isVisible)
         {
-             RemoveColor(protanopia);
+             //RemoveColor(protanopia);
            // RemoveColor(protanomaly);
             //RemoveColor(deuteranopia);
            //RemoveColor(tritanopia);
             // RemoveColor(achromatopsia);
-            //RemoveColor(achromatomaly);
+            RemoveColor(achromatomaly);
         }
         else
         {
