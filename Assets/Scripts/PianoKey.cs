@@ -13,7 +13,7 @@ public class PianoKey : MonoBehaviour {
     private float hitPos;
     // This could be public
     private float hitPanelOffset = 0.2f;
-    private float noteHalfLen = 0.25f;
+    private float noteHalfLen = 0.15f;
     private float clickRange = 0.5f;
 
     // Scores
@@ -28,7 +28,7 @@ public class PianoKey : MonoBehaviour {
         downPos = new Vector3(originalPos.x, originalPos.y - 0.5f, originalPos.z);
 
         //Notes
-        hitPos = GetComponent<Transform>().position.z + GetComponent<Transform>().localScale.z / 2f + hitPanelOffset;
+        hitPos = -13f;
     }
 	
 	// Update is called once per frame
@@ -42,7 +42,7 @@ public class PianoKey : MonoBehaviour {
         while (notes.Count > 0)
         {
             float frontFacePos = notes[0].GetComponent<Transform>().position.z - noteHalfLen;
-            if (frontFacePos < hitPos - 2)
+            if (frontFacePos < hitPos - 1)
             {
 
                 GameObject temp = notes[0];
@@ -63,7 +63,7 @@ public class PianoKey : MonoBehaviour {
         if (notes.Count > 0)
         {
             // Check
-            float scaleZ = notes[0].GetComponent<Transform>().localScale.z;
+            float scaleZ = noteHalfLen * 2;
             float frontFacePos = notes[0].GetComponent<Transform>().position.z -  scaleZ/ 2;
             float nearFace = hitPos - scaleZ;
             float farFace = hitPos + scaleZ;

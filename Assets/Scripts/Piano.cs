@@ -12,10 +12,14 @@ public class Piano : MonoBehaviour {
         pianoKeys[1].AddNote(5f);
         pianoKeys[2].AddNote(6f);
         pianoKeys[3].AddNote(7f);
-        pianoKeys[0].AddNote(9f);
-        pianoKeys[1].AddNote(11f);
-        pianoKeys[2].AddNote(13f);
-        pianoKeys[3].AddNote(15f);
+        pianoKeys[4].AddNote(9f);
+        pianoKeys[5].AddNote(11f);
+        pianoKeys[6].AddNote(13f);
+        pianoKeys[7].AddNote(15f);
+        pianoKeys[8].AddNote(17f);
+        pianoKeys[9].AddNote(19f);
+        pianoKeys[10].AddNote(21f);
+        pianoKeys[11].AddNote(22f);
     }
 	
 	// Update is called once per frame
