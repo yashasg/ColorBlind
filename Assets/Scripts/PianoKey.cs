@@ -116,6 +116,12 @@ public class PianoKey : MonoBehaviour {
 
     public float GetScore()
     {
-        return ((float)score) / ((float)numOfNotes);
+        if (numOfNotes > 0)
+        {
+            return ((float)score) / ((float)numOfNotes * 2f);
+        } else
+        {
+            return -1;
+        }
     }
 }
