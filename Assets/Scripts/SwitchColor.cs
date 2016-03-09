@@ -51,7 +51,7 @@ public class SwitchColor: MonoBehaviour
 
         if (Physics.Raycast(mouseRay, out hit))
         {
-            selected.transform.GetComponent<SpriteRenderer>().color = crayonSet.transform.Find(transform.parent.name).transform.GetChild(0).GetComponent<MeshRenderer>().material.color;
+            selected.transform.GetComponent<SpriteRenderer>().color = crayonSet.transform.Find(transform.parent.name).transform.GetChild(0).GetComponent<MeshRenderer>().material.GetColor("_Color");
             selected.name = crayonSet.transform.Find(transform.parent.name).name;
         }
     }

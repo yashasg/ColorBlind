@@ -11,7 +11,6 @@ public class Crosshair : MonoBehaviour {
         float crossHairSize = Screen.width * 0.05f;
         crossHairTex = Resources.Load("crosshair") as Texture;
         crossHairRect = new Rect(Screen.width / 2 - crossHairSize / 2, Screen.height / 2 - crossHairSize / 2, crossHairSize, crossHairSize);
-       GetComponent<Camera>().RenderWithShader
     }
 	
 	// Update is called once per frame
