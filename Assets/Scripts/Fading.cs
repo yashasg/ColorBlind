@@ -23,7 +23,7 @@ public class Fading : MonoBehaviour {
     public float BeginFade(int direction)
     {
         fadeDir = direction;
-        return (fadeSpeed);
+        return (1.0f/fadeSpeed);
     }
 
     //void OnLevelWasLoaded ()

@@ -18,7 +18,11 @@ public class EatFood : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<MeshRenderer>().materials[0].name == "RedMatColor (Instance)")
+        if ((other.gameObject.tag != "eatable") && (other.gameObject.tag != "uneatable"))
+        {
+            return;
+        }
+        if (other.gameObject.tag == "uneatable")
         {
             soundBad.Play();
         } else
