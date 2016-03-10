@@ -11,6 +11,8 @@ static class RendererExtensions
 	}
 }
 
+public enum ModMatrix { PROTANOPIA, PROTANOMALY, DEUTERANOPIA, TRITANOPIA, ACHROMATOPSIA, ACHROMATOMALY, DEUTERANOMALY, TRITANOMALY };
+
 public class ModMaterial: MonoBehaviour
 {
     //  GameObject blue;
@@ -18,6 +20,9 @@ public class ModMaterial: MonoBehaviour
     //  public GameObject red;
     Material matt;
     Color matColor;
+
+    public ModMatrix selectedMatrix;
+
     Matrix4x4 protanopia;
     Matrix4x4 protanomaly;
     Matrix4x4 deuteranopia;
@@ -31,6 +36,7 @@ public class ModMaterial: MonoBehaviour
     {
         matt = this.GetComponent<MeshRenderer>().material;
         matColor = this.GetComponent<MeshRenderer>().material.color;
+
         //originalColor = originMat.GetColor("_Color");
 
         //  matColor = originMat.GetColor("_Color");
@@ -102,8 +108,40 @@ public class ModMaterial: MonoBehaviour
  
     }
    
-    void RemoveColor(Matrix4x4 matrix)
+    void RemoveColor(ModMatrix mat)
     {
+        Matrix4x4 matrix = new Matrix4x4();
+
+        // { PROTANOPIA, PROTANOMALY, DEUTERANOPIA, TRITANOPIA, ACHROMATOPSIA, ACHROMATOMALY, DEUTERANOMALY, TRITANOMALY };
+
+        switch (mat)
+        {
+            case ModMatrix.PROTANOPIA:
+                matrix = protanopia;
+                break;
+            case ModMatrix.PROTANOMALY:
+                matrix = protanomaly;
+                break;
+            case ModMatrix.DEUTERANOPIA:
+                matrix = deuteranopia;
+                break;
+            case ModMatrix.TRITANOPIA:
+                matrix = tritanopia;
+                break;
+            case ModMatrix.ACHROMATOPSIA:
+                matrix = achromatopsia;
+                break;
+            case ModMatrix.ACHROMATOMALY:
+                matrix = achromatomaly;
+                break;
+            case ModMatrix.DEUTERANOMALY:
+                matrix = deuteranomaly;
+                break;
+            case ModMatrix.TRITANOMALY:
+                matrix = tritanomaly;
+                break;
+        }
+
        // Debug.Log(matt.color.ToString());
             float r = matColor.r * matrix.GetRow(0).x + matColor.g * matrix.GetRow(0).y + matColor.b * matrix.GetRow(0).z;
         float g = matColor.r * matrix.GetRow(1).x + matColor.g * matrix.GetRow(1).y + matColor.b * matrix.GetRow(1).z;
@@ -116,12 +154,7 @@ public class ModMaterial: MonoBehaviour
     { 
         if (this.GetComponent<Renderer>().isVisible)
         {
-             RemoveColor(protanopia);
-           // RemoveColor(protanomaly);
-            //RemoveColor(deuteranopia);
-           //RemoveColor(tritanopia);
-            // RemoveColor(achromatopsia);
-            //RemoveColor(achromatomaly);
+             RemoveColor(selectedMatrix);
         }
         else
         {
