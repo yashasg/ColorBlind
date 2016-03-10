@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using UnityEngine;
 
 namespace UnityStandardAssets.ImageEffects
@@ -87,3 +87,4 @@ namespace UnityStandardAssets.ImageEffects
         }
     }
 }
+*/
