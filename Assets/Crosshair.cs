@@ -16,6 +16,7 @@ public class Crosshair : MonoBehaviour {
         crossHairTex = Resources.Load("crosshair") as Texture;
         crossHairRect = new Rect(Screen.width / 2 - crossHairSize / 2, Screen.height / 2 - crossHairSize / 2, crossHairSize, crossHairSize);
         newShader = Shader.Find("Toon/Lit Outline");
+        
         oldShader = Shader.Find("Standard");
     }
 
