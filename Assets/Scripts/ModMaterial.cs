@@ -60,6 +60,11 @@ public class ModMaterial: MonoBehaviour
         normal.SetRow(2, new Vector4(0.0f, 0.0f, 1.0f, 1.0f));
         normal.SetRow(3, new Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
+        normal.SetRow(0, new Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+        normal.SetRow(1, new Vector4(0.0f, 1.0f, 0.0f, 1.0f));
+        normal.SetRow(2, new Vector4(0.0f, 0.0f, 1.0f, 1.0f));
+        normal.SetRow(3, new Vector4(1.0f, 1.0f, 1.0f, 1.0f)); 
+
         protanopia.SetRow(0, new Vector4(0.567f, 0.433f, 0.0f, 1.0f));
         protanopia.SetRow(1, new Vector4(0.558f, 0.442f, 0.0f, 1.0f));
         protanopia.SetRow(2, new Vector4(0.0f, 0.242f, 0.758f, 1.0f));
