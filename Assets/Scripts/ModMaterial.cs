@@ -11,7 +11,7 @@ static class RendererExtensions
 	}
 }
 
-public enum ModMatrix { PROTANOPIA, PROTANOMALY, DEUTERANOPIA, TRITANOPIA, ACHROMATOPSIA, ACHROMATOMALY, DEUTERANOMALY, TRITANOMALY };
+public enum ModMatrix { NORMAL, PROTANOPIA, PROTANOMALY, DEUTERANOPIA, TRITANOPIA, ACHROMATOPSIA, ACHROMATOMALY, DEUTERANOMALY, TRITANOMALY };
 
 public class ModMaterial: MonoBehaviour
 {
@@ -23,6 +23,7 @@ public class ModMaterial: MonoBehaviour
 
     public ModMatrix selectedMatrix;
 
+    Matrix4x4 normal;
     Matrix4x4 protanopia;
     Matrix4x4 protanomaly;
     Matrix4x4 deuteranopia;
@@ -41,6 +42,7 @@ public class ModMaterial: MonoBehaviour
 
         //  matColor = originMat.GetColor("_Color");
 
+        normal = new Matrix4x4();
         protanopia = new Matrix4x4();
         protanomaly = new Matrix4x4();
         deuteranopia = new Matrix4x4();
@@ -48,6 +50,11 @@ public class ModMaterial: MonoBehaviour
         tritanopia = new Matrix4x4();
         achromatopsia = new Matrix4x4();
         achromatomaly = new Matrix4x4();
+
+        normal.SetRow(0, new Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+        normal.SetRow(1, new Vector4(0.0f, 1.0f, 0.0f, 1.0f));
+        normal.SetRow(2, new Vector4(0.0f, 0.0f, 1.0f, 1.0f));
+        normal.SetRow(3, new Vector4(1.0f, 1.0f, 1.0f, 1.0f)); 
 
         protanopia.SetRow(0, new Vector4(0.567f, 0.433f, 0.0f, 1.0f));
         protanopia.SetRow(1, new Vector4(0.558f, 0.442f, 0.0f, 1.0f));
@@ -116,6 +123,9 @@ public class ModMaterial: MonoBehaviour
 
         switch (mat)
         {
+            case ModMatrix.NORMAL:
+                matrix = normal;
+                break;
             case ModMatrix.PROTANOPIA:
                 matrix = protanopia;
                 break;
