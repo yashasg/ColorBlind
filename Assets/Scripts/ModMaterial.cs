@@ -11,18 +11,19 @@ static class RendererExtensions
 	}
 }
 
-public enum ModMatrix { PROTANOPIA, PROTANOMALY, DEUTERANOPIA, TRITANOPIA, ACHROMATOPSIA, ACHROMATOMALY, DEUTERANOMALY, TRITANOMALY };
+public enum ModMatrix { NORMAL, PROTANOPIA, PROTANOMALY, DEUTERANOPIA, TRITANOPIA, ACHROMATOPSIA, ACHROMATOMALY, DEUTERANOMALY, TRITANOMALY };
 
 public class ModMaterial: MonoBehaviour
 {
     //  GameObject blue;
     // GameObject green;
     //  public GameObject red;
-    Material matt;
-    Color matColor;
+    Material[] mats;
+    Color[] matColors;
 
     public ModMatrix selectedMatrix;
 
+    Matrix4x4 normal;
     Matrix4x4 protanopia;
     Matrix4x4 protanomaly;
     Matrix4x4 deuteranopia;
@@ -31,16 +32,20 @@ public class ModMaterial: MonoBehaviour
     Matrix4x4 achromatomaly;
     Matrix4x4 deuteranomaly;
     Matrix4x4 tritanomaly;
+  
 
     void Start()
     {
-        matt = this.GetComponent<MeshRenderer>().material;
-        matColor = this.GetComponent<MeshRenderer>().material.color;
+        mats = this.GetComponent<MeshRenderer>().materials;
 
-        //originalColor = originMat.GetColor("_Color");
+        matColors = new Color[mats.Length];
 
-        //  matColor = originMat.GetColor("_Color");
+        for(int i = 0; i < mats.Length; i++)
+        {
+            matColors[i] = this.GetComponent<MeshRenderer>().materials[i].color;
+        }        
 
+        normal = new Matrix4x4();
         protanopia = new Matrix4x4();
         protanomaly = new Matrix4x4();
         deuteranopia = new Matrix4x4();
@@ -48,6 +53,17 @@ public class ModMaterial: MonoBehaviour
         tritanopia = new Matrix4x4();
         achromatopsia = new Matrix4x4();
         achromatomaly = new Matrix4x4();
+        
+
+        normal.SetRow(0, new Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+        normal.SetRow(1, new Vector4(0.0f, 1.0f, 0.0f, 1.0f));
+        normal.SetRow(2, new Vector4(0.0f, 0.0f, 1.0f, 1.0f));
+        normal.SetRow(3, new Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+
+        normal.SetRow(0, new Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+        normal.SetRow(1, new Vector4(0.0f, 1.0f, 0.0f, 1.0f));
+        normal.SetRow(2, new Vector4(0.0f, 0.0f, 1.0f, 1.0f));
+        normal.SetRow(3, new Vector4(1.0f, 1.0f, 1.0f, 1.0f)); 
 
         protanopia.SetRow(0, new Vector4(0.567f, 0.433f, 0.0f, 1.0f));
         protanopia.SetRow(1, new Vector4(0.558f, 0.442f, 0.0f, 1.0f));
@@ -102,10 +118,11 @@ public class ModMaterial: MonoBehaviour
         achromatomaly.SetRow(2, new Vector4(0.163f, 0.32f, 0.516f, 1.0f));
         achromatomaly.SetRow(3, new Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
-       //replace shader
+    
+        //replace shader
 
 
- 
+
     }
    
     void RemoveColor(ModMatrix mat)
@@ -116,6 +133,9 @@ public class ModMaterial: MonoBehaviour
 
         switch (mat)
         {
+            case ModMatrix.NORMAL:
+                matrix = normal;
+                break;
             case ModMatrix.PROTANOPIA:
                 matrix = protanopia;
                 break;
@@ -142,13 +162,19 @@ public class ModMaterial: MonoBehaviour
                 break;
         }
 
-       // Debug.Log(matt.color.ToString());
-            float r = matColor.r * matrix.GetRow(0).x + matColor.g * matrix.GetRow(0).y + matColor.b * matrix.GetRow(0).z;
-        float g = matColor.r * matrix.GetRow(1).x + matColor.g * matrix.GetRow(1).y + matColor.b * matrix.GetRow(1).z;
-            float b = matColor.r * matrix.GetRow(2).x + matColor.g * matrix.GetRow(2).y + matColor.b * matrix.GetRow(2).z;
+        // Debug.Log(mats.color.ToString());
+        float r = 0.0f;
+        float g = 0.0f;
+        float b = 0.0f;
             const float a = 1.0f;
-           matt.SetColor("_Color", new Color(r, g, b, a));
-      //  Debug.Log(matt.color.ToString());
+            for(int i = 0; i < mats.Length; i++)
+            {
+                r = matColors[i].r * matrix.GetRow(0).x + matColors[i].g * matrix.GetRow(0).y + matColors[i].b * matrix.GetRow(0).z;
+                g = matColors[i].r * matrix.GetRow(1).x + matColors[i].g * matrix.GetRow(1).y + matColors[i].b * matrix.GetRow(1).z;
+                b = matColors[i].r * matrix.GetRow(2).x + matColors[i].g * matrix.GetRow(2).y + matColors[i].b * matrix.GetRow(2).z;
+                mats[i].SetColor("_Color", new Color(r, g, b, a));
+        }
+      //  Debug.Log(mats.color.ToString());
     }
     public void Update()
     { 
@@ -158,7 +184,10 @@ public class ModMaterial: MonoBehaviour
         }
         else
         {
-            matt.SetColor("_Color", matColor);
+            for(int i = 0; i < mats.Length; i++)
+            {
+                mats[i].SetColor("_Color", matColors[i]);
+            }
         }
     }
 }
