@@ -4,9 +4,12 @@ using System.Collections;
 public class Piano : MonoBehaviour {
     
     public PianoKey [] pianoKeys;
+    public GameObject levelLoader;
 
     // Use this for initialization
     void Start () {
+        levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
+        levelLoader.GetComponent<LevelLoader>().BeginFade();
 
         pianoKeys[0].AddNote(4f);
         pianoKeys[1].AddNote(5f);

@@ -6,15 +6,22 @@ public class EatFood : MonoBehaviour {
     public AudioSource soundGood;
     public AudioSource soundBad;
 
+    public GameObject levelLoader;
+
 	// Use this for initialization
 	void Start () {
-	
+        levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
+        levelLoader.GetComponent<LevelLoader>().BeginFade();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        GameObject[] eatableFoods = GameObject.FindGameObjectsWithTag("eatable");
+        if (eatableFoods.Length <= 0)
+        {
+            levelLoader.GetComponent<LevelLoader>().isTriggered = true;
+        }
+    }
 
     void OnTriggerEnter(Collider other)
     {
