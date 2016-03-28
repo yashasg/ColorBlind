@@ -14,7 +14,12 @@ public class Painting : MonoBehaviour
         crayonSet = GameObject.Find("Pencils");
         selected = GameObject.FindWithTag("Selected");
         rainbow = GameObject.Find("Rainbow");
-	}
+
+        // Modifying Shader Parameters
+
+        GetComponent<SpriteRenderer>().material.SetFloat("_RedrawRate", 0.0f);
+        GetComponent<SpriteRenderer>().material.SetFloat("_OutlineWidth", 0.001f);
+    }
 	
     void OnMouseDown()
     {
@@ -32,7 +37,10 @@ public class Painting : MonoBehaviour
             {
                 coloredArcs++;
             }
-            GetComponent<SpriteRenderer>().color = selected.GetComponent<SpriteRenderer>().color;
+
+            // Modifying Shader Parameter
+
+            GetComponent<SpriteRenderer>().material.SetColor("_OutlineColour", selected.GetComponent<SpriteRenderer>().color);
         }
     }
 }
