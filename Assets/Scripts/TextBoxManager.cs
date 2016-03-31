@@ -101,12 +101,6 @@ public class TextBoxManager : MonoBehaviour {
         }
         theText.color = new Color (theText.color.r, theText.color.g, theText.color.b, alpha);
         
-        // Return
-        //if (Input.GetKeyDown(KeyCode.Return))
-        //{
-        //    currentLine += 1;
-        //}
-
         if (alpha <= 0.0f)
         {
             currentLine++;
@@ -119,7 +113,8 @@ public class TextBoxManager : MonoBehaviour {
         if (currentLine > endAtLine)
         {
             currentLine -= 1;
-            textBox.SetActive(false);
+            //textBox.SetActive(false);
+            DisableTextBox();
         }
 	}
 
@@ -128,10 +123,6 @@ public class TextBoxManager : MonoBehaviour {
         textBox.SetActive(true);
         isActive = true;
         
-        //if (stopPlayerMovement)
-        //{
-        //    Player.canMove = false;
-        //}
     }
 
     public void DisableTextBox()
@@ -156,5 +147,20 @@ public class TextBoxManager : MonoBehaviour {
         isHeld = false;
         tempHold = 0.0f;
         isStarted = false;
+    }
+
+    public bool Play(int startAt, int endAt)
+    {
+        if (isActive == true)
+        {
+            // you can not play if it's playing
+            return false;
+        }
+        Reset();
+        EnableTextBox();
+        currentLine = startAt;
+        endAtLine = endAt;
+
+        return true;
     }
 }
