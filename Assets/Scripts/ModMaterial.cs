@@ -141,7 +141,7 @@ public class ModMaterial: MonoBehaviour
 
     }
    
-    void RemoveColor(ModMatrix mat)
+    void RemoveColor(ModMatrix mat,GameObject obj)
     {
         Matrix4x4 matrix = new Matrix4x4();
 
@@ -183,7 +183,7 @@ public class ModMaterial: MonoBehaviour
         float g = 0.0f;
         float b = 0.0f;
             const float a = 1.0f;
-            foreach(Material mati in mats)
+            foreach(Material mati in obj.GetComponent<Renderer>().materials)
             {
                 r = mati.color.r * matrix.GetRow(0).x + mati.color.g * matrix.GetRow(0).y + mati.color.b * matrix.GetRow(0).z;
                 g = mati.color.r * matrix.GetRow(1).x + mati.color.g * matrix.GetRow(1).y + mati.color.b * matrix.GetRow(1).z;
@@ -200,7 +200,7 @@ public class ModMaterial: MonoBehaviour
             {
                 if (objs[i].GetComponent<Renderer>().isVisible)
                 {
-                    RemoveColor(selectedMatrix);
+                    RemoveColor(selectedMatrix, objs[i]);
                 }
                /* else
                 {
