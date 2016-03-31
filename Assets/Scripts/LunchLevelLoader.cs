@@ -23,4 +23,9 @@ public class LunchLevelLoader : MonoBehaviour {
             StartCoroutine(ChangeLevel());
         }
 	}
+
+    //void Awake()
+    //{
+    //    DontDestroyOnLoad(gameObject);
+    //}
 }
