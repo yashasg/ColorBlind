@@ -9,8 +9,8 @@ public class Piano : MonoBehaviour {
     // Use this for initialization
     void Start () {
         levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
-        levelLoader.GetComponent<LevelLoader>().isTriggered = false;
-        levelLoader.GetComponent<LevelLoader>().LoadLevel();
+        levelLoader.GetComponent<LevelLoader>().loadNextLevel = false;
+        levelLoader.GetComponent<LevelLoader>().LoadCurrentLevel(-1);
 
         pianoKeys[0].AddNote(4f);
         pianoKeys[1].AddNote(5f);
