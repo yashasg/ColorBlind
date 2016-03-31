@@ -8,12 +8,28 @@ public class movetonextLevel : MonoBehaviour {
 
     bool Q1 = false, Q2 = false;
     public bool isSetup = false;
+
+
+    // Added by Kun
+    public GameObject levelLoader;
+
+    void Start()
+    {
+        // Added by Kun
+        levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
+        levelLoader.GetComponent<LevelLoader>().loadNextLevel = false;
+        levelLoader.GetComponent<LevelLoader>().LoadCurrentLevel(-1);
+    }
+
     // Use this for initialization
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag.Equals("Player"))
         {
-           //Kun Jump to next level here
+            //Kun Jump to next level here
+            levelLoader.GetComponent<LevelLoader>().loadNextLevel = true;
         }
     }
+
+    
 }
