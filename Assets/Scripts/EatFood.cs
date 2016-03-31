@@ -11,7 +11,7 @@ public class EatFood : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
-        levelLoader.GetComponent<LevelLoader>().BeginFade();
+        levelLoader.GetComponent<LevelLoader>().LoadLevel();
 	}
 	
 	// Update is called once per frame

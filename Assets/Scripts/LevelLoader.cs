@@ -12,8 +12,9 @@ public class LevelLoader : MonoBehaviour {
     {
     }
 
-    public void BeginFade()
+    public void LoadLevel()
     {
+        isTriggered = false;
         GetComponent<Fading>().BeginFade(-1);
     }
 
