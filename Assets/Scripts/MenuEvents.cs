@@ -74,7 +74,7 @@ public class MenuEvents : MonoBehaviour
     }
     public void CChapter4()
     {
-        levelLoader.GetComponent<LevelLoader>().nextLevel = 1;
+        levelLoader.GetComponent<LevelLoader>().nextLevel = 9;
         levelLoader.GetComponent<LevelLoader>().loadNextLevel = true;
     }
 
