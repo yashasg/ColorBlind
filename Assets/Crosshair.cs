@@ -37,7 +37,7 @@ public class Crosshair : MonoBehaviour {
                Debug.Log(hit.transform.parent.tag);
                 else
                     Debug.Log(hit.transform.tag);
-                DialogManager.GetComponent<TextBoxManager>().colorSelected = hit.transform.tag.ToString();
+                //DialogManager.GetComponent<TextBoxManager>().colorSelected = hit.transform.tag.ToString();
             }
         }
         if (Input.GetMouseButtonDown(1))

@@ -1,2 +1,8 @@
-I Spy with my little eye the color: Red
-I Spy with my little eye the color: Green
+I Spy with my little eye the color: 0
+I Spy with my little eye the color: 1
+I Spy with my little eye the color: 2
+I Spy with my little eye the color: 3
+I Spy with my little eye the color: 4
+I Spy with my little eye the color: 5
+I Spy with my little eye the color: 6
+I Spy with my little eye the color: 7
