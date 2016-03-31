@@ -6,6 +6,7 @@ public class BeginMiniMiniGame : MonoBehaviour {
     public GameObject player;
     public GameObject camera;
     public GameObject dialogSystem;
+    public GameObject mmg2;
     bool Q1 = false, Q2 = false;
     public bool isSetup=false;
 	// Use this for initialization
@@ -13,7 +14,6 @@ void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag.Equals("Player")){
             setupMiniMiniGame1();
-            BeginMiniMiniGame1();
         }
     }
 
@@ -22,10 +22,11 @@ void OnTriggerEnter(Collider other)
         //freeze the player movement.
         player.GetComponent<Movement>().enabled = false;
         player.SetActive(false);
+       mmg2.SetActive(false);
         //place the camera perfectly to view all the important objects in the scene.
-       camera.SetActive(false);
+       //camera.SetActive(false);
         //DialogManager.GetComponent<TextBoxManager>().isActive = true;
-        GameObject.Find("MMG1Camera").SetActive(true);
+        GameObject.FindGameObjectWithTag("FirstPersonCamera").SetActive(true);
         isSetup = true;
        
     }

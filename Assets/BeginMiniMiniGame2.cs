@@ -7,6 +7,7 @@ public class BeginMiniMiniGame2 : MonoBehaviour
     public GameObject player;
     public GameObject camera;
     public GameObject dialogSystem;
+    public GameObject myCam;
     bool Q1 = false, Q2 = false;
     public bool isSetup = false;
     // Use this for initialization
@@ -26,7 +27,7 @@ public class BeginMiniMiniGame2 : MonoBehaviour
         //place the camera perfectly to view all the important objects in the scene.
         camera.SetActive(false);
         //DialogManager.GetComponent<TextBoxManager>().isActive = true;
-        GameObject.Find("MMG2Camera").SetActive(true);
+        myCam.SetActive(true);
         isSetup = true;
 
     }
