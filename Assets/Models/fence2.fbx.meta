@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: f519f0082e45aab4ea947ca23b8de55d
-timeCreated: 1457601965
+guid: 0045d083eec63cd4ea9b8d6145c866e0
+timeCreated: 1459414594
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -9,9 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCube65
-    6400000: //RootNode
-    9500000: //RootNode
+    4300000: pCube105
   materials:
     importMaterials: 1
     materialName: 0
@@ -38,7 +36,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -70,7 +68,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

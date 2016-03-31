@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: f519f0082e45aab4ea947ca23b8de55d
-timeCreated: 1457601965
+guid: e7f6f51f6fa14b04784951b23e65a9db
+timeCreated: 1459413242
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -9,9 +9,8 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCube65
+    4300000: pCylinder2
     6400000: //RootNode
-    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -70,7 +69,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
