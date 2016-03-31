@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using System;
 
 public class TextBoxManager : MonoBehaviour {
 
@@ -12,12 +11,10 @@ public class TextBoxManager : MonoBehaviour {
     public TextAsset textfile;
     public string[] textLines;
 
-    public int currentLine;
-    public int counter=0;
-    public string colorSelected;
-    public int endAtLine;
+    private int currentLine;
+    private int endAtLine;
 
-    public bool isActive;
+    private bool isActive;
 
     public bool stopPlayerMovement;
 
@@ -70,11 +67,6 @@ public class TextBoxManager : MonoBehaviour {
         {
             return;
         }
-       //added by yashas to make the texxt box appear.
-        else if (isActive)
-        {
-            EnableTextBox();
-        }
 
 
         if (isHeld)
@@ -96,22 +88,22 @@ public class TextBoxManager : MonoBehaviour {
             // start showing the first text
             StartCoroutine(ShowTextWithFading());
         }
-        currentLine = counterIncrementer(textLines[currentLine], colorSelected);
+
         theText.text = textLines[currentLine];
         alpha += fadeDir * fadeSpeed * Time.deltaTime;
         // change the direction
-        fadeDirChange();
-       
+        if (alpha >= 1.0f)
+        {
+            isHeld = true;
+            tempHold = 0f;
+            fadeDir = -1;
+            isStarted = false;
+        }
+        theText.color = new Color (theText.color.r, theText.color.g, theText.color.b, alpha);
         
-        // Return
-        //if (Input.GetKeyDown(KeyCode.Return))
-        //{
-        //    currentLine += 1;
-        //}
-
         if (alpha <= 0.0f)
         {
-          //  currentLine++;
+            currentLine++;
             // reset the settings
             alpha = 0.0f;
             fadeDir = 1;
@@ -121,31 +113,10 @@ public class TextBoxManager : MonoBehaviour {
         if (currentLine > endAtLine)
         {
             currentLine -= 1;
-            textBox.SetActive(false);
+            //textBox.SetActive(false);
+            DisableTextBox();
         }
 	}
-
-    private int counterIncrementer(string CurrentLine,string SelectedColor)
-    {
-        if (CurrentLine.Contains(SelectedColor))
-        {
-            counter++;
-            SelectedColor = "Sex";
-        }
-        return counter;
-    }
-
-    private void fadeDirChange()
-    {
-        if (alpha >= 1.0f)
-        {
-            isHeld = true;
-            tempHold = 0f;
-            fadeDir = -1;
-            isStarted = false;
-        }
-        theText.color = new Color(theText.color.r, theText.color.g, theText.color.b, alpha);
-    }
 
     public void EnableTextBox()
     {
@@ -176,5 +147,20 @@ public class TextBoxManager : MonoBehaviour {
         isHeld = false;
         tempHold = 0.0f;
         isStarted = false;
+    }
+
+    public bool Play(int startAt, int endAt)
+    {
+        if (isActive == true)
+        {
+            // you can not play if it's playing
+            return false;
+        }
+        Reset();
+        EnableTextBox();
+        currentLine = startAt;
+        endAtLine = endAt;
+
+        return true;
     }
 }

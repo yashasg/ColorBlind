@@ -22,7 +22,7 @@ void OnTriggerEnter(Collider other)
         player.SetActive(false);
         //place the camera perfectly to view all the important objects in the scene.
        camera.SetActive(false);
-        DialogManager.GetComponent<TextBoxManager>().isActive = true;
+        //DialogManager.GetComponent<TextBoxManager>().isActive = true;
         GameObject.Find("MMG1Camera").SetActive(true);
        
     }
