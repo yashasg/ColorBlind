@@ -58,4 +58,11 @@ public class MenuEvents : MonoBehaviour
         ImageHolder.GetComponent<Image>().sprite = Resources.Load<Sprite>("Chapter5");
         ImageHolder.GetComponent<Image>().color = Color.white;
     }
+
+    public void CChapter1()
+    {
+    }
+    public void CChapter4()
+    {
+    }
 }
