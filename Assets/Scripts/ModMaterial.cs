@@ -15,11 +15,10 @@ public enum ModMatrix { NORMAL, PROTANOPIA, PROTANOMALY, DEUTERANOPIA, TRITANOPI
 
 public class ModMaterial: MonoBehaviour
 {
-    //  GameObject blue;
-    // GameObject green;
-    //  public GameObject red;
-    Material[] mats;
-    Color[] matColors;
+    List<Material> mats;
+    List<Color> matColors;
+
+    List<GameObject> objs;
 
     public ModMatrix selectedMatrix;
 
@@ -32,17 +31,36 @@ public class ModMaterial: MonoBehaviour
     Matrix4x4 achromatomaly;
     Matrix4x4 deuteranomaly;
     Matrix4x4 tritanomaly;
-  
+
 
     void Start()
     {
-        mats = this.GetComponent<MeshRenderer>().materials;
-
-        matColors = new Color[mats.Length];
-
-        for(int i = 0; i < mats.Length; i++)
+        objs = new List<GameObject>();
+        foreach ( GameObject gameobj in FindObjectsOfType(typeof(GameObject)))
         {
-            matColors[i] = this.GetComponent<MeshRenderer>().materials[i].color;
+            objs.Add(gameobj);
+        }
+
+        
+        mats = new List<Material>();
+
+        foreach (GameObject obj in objs)
+        {   
+            if (obj.GetComponent<Renderer>())
+            {
+                foreach(Material mat in obj.GetComponent<Renderer>().materials)
+                {
+                    mats.Add(mat);
+                }
+             }
+            else if (obj.GetComponentInChildren<Renderer>())
+            {
+                foreach (Material mat in obj.GetComponentInChildren<Renderer>().materials)
+                {
+                    mats.Add(mat);
+                }
+            }
+
         }        
 
         normal = new Matrix4x4();
@@ -121,8 +139,6 @@ public class ModMaterial: MonoBehaviour
     
         //replace shader
 
-
-
     }
    
     void RemoveColor(ModMatrix mat)
@@ -167,26 +183,32 @@ public class ModMaterial: MonoBehaviour
         float g = 0.0f;
         float b = 0.0f;
             const float a = 1.0f;
-            for(int i = 0; i < mats.Length; i++)
+            foreach(Material mati in mats)
             {
-                r = matColors[i].r * matrix.GetRow(0).x + matColors[i].g * matrix.GetRow(0).y + matColors[i].b * matrix.GetRow(0).z;
-                g = matColors[i].r * matrix.GetRow(1).x + matColors[i].g * matrix.GetRow(1).y + matColors[i].b * matrix.GetRow(1).z;
-                b = matColors[i].r * matrix.GetRow(2).x + matColors[i].g * matrix.GetRow(2).y + matColors[i].b * matrix.GetRow(2).z;
-                mats[i].SetColor("_Color", new Color(r, g, b, a));
+                r = mati.color.r * matrix.GetRow(0).x + mati.color.g * matrix.GetRow(0).y + mati.color.b * matrix.GetRow(0).z;
+                g = mati.color.r * matrix.GetRow(1).x + mati.color.g * matrix.GetRow(1).y + mati.color.b * matrix.GetRow(1).z;
+                b = mati.color.r * matrix.GetRow(2).x + mati.color.g * matrix.GetRow(2).y + mati.color.b * matrix.GetRow(2).z;
+            mati.SetColor("_Color", new Color(r, g, b, a));
         }
       //  Debug.Log(mats.color.ToString());
     }
     public void Update()
-    { 
-        if (this.GetComponent<Renderer>().isVisible)
+    {
+        for (int i = 0; i < objs.Count; i++)
         {
-             RemoveColor(selectedMatrix);
-        }
-        else
-        {
-            for(int i = 0; i < mats.Length; i++)
+            if (objs[i].GetComponent<Renderer>())
             {
-                mats[i].SetColor("_Color", matColors[i]);
+                if (objs[i].GetComponent<Renderer>().isVisible)
+                {
+                    RemoveColor(selectedMatrix);
+                }
+               /* else
+                {
+                    foreach(Material material in mats)
+                    {
+                        material.SetColor("_Color", matColors[j]);
+                    }
+                }*/
             }
         }
     }
