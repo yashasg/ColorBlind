@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CutsceneController : MonoBehaviour {
 
-    public float timer = 3f;
+    public float timer = 5f;
     public GameObject levelLoader;
     public int nextLevel = -1;
 

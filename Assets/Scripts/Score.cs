@@ -9,12 +9,19 @@ public class Score : MonoBehaviour
     GameObject rainbow;
     GameObject crayons;
     GameObject selected;
+    // Added by Kun
+    public GameObject levelLoader;
 
     void Start ()
     {
         rainbow = GameObject.Find("Rainbow");
         crayons = GameObject.Find("Pencils");
         selected = GameObject.FindWithTag("Selected");
+
+        // Added by Kun
+        levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
+        levelLoader.GetComponent<LevelLoader>().loadNextLevel = false;
+        levelLoader.GetComponent<LevelLoader>().LoadCurrentLevel(-1);
     }
 
     void OnMouseDown()
@@ -44,7 +51,9 @@ public class Score : MonoBehaviour
         }
         if(Painting.coloredArcs == 7)
         {
-            SceneManager.LoadScene(1);
+            //SceneManager.LoadScene(1);
+            // Changed by Kun
+            levelLoader.GetComponent<LevelLoader>().loadNextLevel = true;
         }        
     }
 }

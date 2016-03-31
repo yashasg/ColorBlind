@@ -8,19 +8,22 @@ public class EatFood : MonoBehaviour {
 
     public GameObject levelLoader;
 
+    private bool isLoadingNextLevel = false;
+
 	// Use this for initialization
 	void Start () {
         levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
-        levelLoader.GetComponent<LevelLoader>().loadNextLevel = false;
         levelLoader.GetComponent<LevelLoader>().LoadCurrentLevel(-1);
-	}
+        levelLoader.GetComponent<LevelLoader>().loadNextLevel = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
         GameObject[] eatableFoods = GameObject.FindGameObjectsWithTag("eatable");
-        if (eatableFoods.Length <= 0)
+        if (isLoadingNextLevel == false && eatableFoods.Length <= 0)
         {
             levelLoader.GetComponent<LevelLoader>().loadNextLevel = true;
+            isLoadingNextLevel = true;
         }
     }
 

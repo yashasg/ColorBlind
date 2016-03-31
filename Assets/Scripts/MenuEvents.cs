@@ -9,6 +9,15 @@ public class MenuEvents : MonoBehaviour
     public GameObject ChapterScreen;
     public GameObject ImageHolder;
 
+
+    public GameObject levelLoader;
+    void Start()
+    {
+        levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
+        levelLoader.GetComponent<LevelLoader>().loadNextLevel = false;
+        levelLoader.GetComponent<LevelLoader>().LoadCurrentLevel(-1);
+    }
+
     public void ClickStart()
     {
         startScreen.SetActive(false);
@@ -58,4 +67,16 @@ public class MenuEvents : MonoBehaviour
         ImageHolder.GetComponent<Image>().sprite = Resources.Load<Sprite>("Chapter5");
         ImageHolder.GetComponent<Image>().color = Color.white;
     }
+
+    public void CChapter1() {
+        levelLoader.GetComponent<LevelLoader>().nextLevel = 2;
+        levelLoader.GetComponent<LevelLoader>().loadNextLevel = true;
+    }
+    public void CChapter4()
+    {
+        levelLoader.GetComponent<LevelLoader>().nextLevel = 11;
+        levelLoader.GetComponent<LevelLoader>().loadNextLevel = true;
+    }
+
+    
 }
