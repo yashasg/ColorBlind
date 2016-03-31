@@ -11,10 +11,10 @@ public class TextBoxManager : MonoBehaviour {
     public TextAsset textfile;
     public string[] textLines;
 
-    public int currentLine;
-    public int endAtLine;
+    private int currentLine;
+    private int endAtLine;
 
-    public bool isActive;
+    private bool isActive;
 
     public bool stopPlayerMovement;
 

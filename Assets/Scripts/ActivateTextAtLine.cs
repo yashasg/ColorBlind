@@ -50,8 +50,8 @@ public class ActivateTextAtLine : MonoBehaviour {
 
         theTextBox.Reset();
         theTextBox.ReloadScript(theText);
-        theTextBox.currentLine = startLine;
-        theTextBox.endAtLine = endLine;
+        //theTextBox.currentLine = startLine;
+        //theTextBox.endAtLine = endLine;
         theTextBox.EnableTextBox();
 
         if (destroyWhenActivated)
