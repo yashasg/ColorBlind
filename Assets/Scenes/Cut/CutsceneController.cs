@@ -5,13 +5,14 @@ public class CutsceneController : MonoBehaviour {
 
     public float timer = 3f;
     public GameObject levelLoader;
+    public int nextLevel = -1;
 
     // Use this for initialization
     void Start () {
 
         levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
         levelLoader.GetComponent<LevelLoader>().loadNextLevel = false;
-        levelLoader.GetComponent<LevelLoader>().LoadCurrentLevel(-1);
+        levelLoader.GetComponent<LevelLoader>().LoadCurrentLevel(nextLevel);
     }
 	
 	// Update is called once per frame
