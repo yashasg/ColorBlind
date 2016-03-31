@@ -7,7 +7,6 @@ public class Crosshair : MonoBehaviour {
     Texture crossHairTex;
     private Rect crossHairRect;
     private Shader newShader;
-    public GameObject DialogManager;
 
 	// Use this for initialization
 	void Start () {
@@ -29,16 +28,37 @@ public class Crosshair : MonoBehaviour {
             // if the ray hits some thing
             if (Physics.Raycast(ray, out hit))
             {
-               /* foreach( Material m in hit.transform.gameObject.GetComponentInChildren<MeshRenderer>().materials)
+                if (this.GetComponent<BeginMiniMiniGame>())
                 {
-                    m.shader = newshader;
-                }*/
-                if (hit.transform.tag == null || hit.transform.tag.ToString().Equals("Untagged"))
-               Debug.Log(hit.transform.parent.tag);
+                    if (this.GetComponent<BeginMiniMiniGame>().isSetup)
+                    {
+                        if (!this.GetComponent<BeginMiniMiniGame>().getQuestion1() && hit.transform.tag == null || hit.transform.tag.ToString().Equals("RED"))
+                            this.GetComponent<BeginMiniMiniGame>().setQuestion1();
+
+                        else if (this.GetComponent<BeginMiniMiniGame>().getQuestion1() && hit.transform.tag == null || hit.transform.tag.ToString().Equals("BLUE"))
+                            this.GetComponent<BeginMiniMiniGame>().setQuestion2();
+                        //Debug.Log(hit.transform.parent.tag);
+                        else
+                            Debug.Log(hit.transform.tag);
+                        //DialogManager.GetComponent<TextBoxManager>().colorSelected = hit.transform.tag.ToString();
+                    }
+                }
                 else
-                    Debug.Log(hit.transform.tag);
-                //DialogManager.GetComponent<TextBoxManager>().colorSelected = hit.transform.tag.ToString();
-            }
+                {
+                    if (this.GetComponent<BeginMiniMiniGame2>().isSetup)
+                    {
+                        if (!this.GetComponent<BeginMiniMiniGame2>().getQuestion1() && hit.transform.tag == null || hit.transform.tag.ToString().Equals("Brown"))
+                            this.GetComponent<BeginMiniMiniGame2>().setQuestion1();
+
+                        else if (this.GetComponent<BeginMiniMiniGame2>().getQuestion1() && hit.transform.tag == null || hit.transform.tag.ToString().Equals("Yellow"))
+                            this.GetComponent<BeginMiniMiniGame2>().setQuestion2();
+                        //Debug.Log(hit.transform.parent.tag);
+                        else
+                            Debug.Log(hit.transform.tag);
+                        //DialogManager.GetComponent<TextBoxManager>().colorSelected = hit.transform.tag.ToString();
+                    }
+                }
+        }
         }
         if (Input.GetMouseButtonDown(1))
         {
