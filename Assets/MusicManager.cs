@@ -21,7 +21,7 @@ public class MusicManager : MonoBehaviour {
         }
 
        AudioSource playingMusic = GameObject.Find("MusicManager").gameObject.GetComponent<AudioSource>();
-        playingMusic.
+        playingMusic.Play();
 
 
 

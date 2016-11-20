@@ -1,3 +1,6 @@
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+
 // Upgrade NOTE: commented out 'float3 _WorldSpaceCameraPos', a built-in variable
 
 Shader "Unity Answers/Diffuse Rim"
@@ -44,7 +47,7 @@ Shader "Unity Answers/Diffuse Rim"
          float _OutlineOffset;
          float _OutlineSize;
          fixed4 _OutlineColor;
-         uniform float4x4 _Object2World, _World2Object;
+         uniform float4x4 unity_ObjectToWorld, unity_WorldToObject;
          // uniform float3 _WorldSpaceCameraPos;
          uniform float4 _Time;
          struct appdata
@@ -63,8 +66,8 @@ Shader "Unity Answers/Diffuse Rim"
              v2f o;
              v.vertex.xyz += _OutlineOffset * v.normal;
              o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
-             o.wPos = mul(_Object2World, v.vertex);
-             o.wNor = mul(_Object2World, float4(v.normal.xyz, 0));
+             o.wPos = mul(unity_ObjectToWorld, v.vertex);
+             o.wNor = mul(unity_ObjectToWorld, float4(v.normal.xyz, 0));
              return o;
          }
          half4 frag(v2f i) : COLOR

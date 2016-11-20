@@ -4,10 +4,8 @@ using System;
 
 public class BeginMiniMiniGame2 : MonoBehaviour
 {
-    public GameObject player;
-    public GameObject camera;
+    private GameObject player;
     public GameObject dialogSystem;
-    public GameObject myCam;
     bool Q1 = false, Q2 = false;
     public bool isSetup = false;
     // Use this for initialization
@@ -15,19 +13,16 @@ public class BeginMiniMiniGame2 : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Player"))
         {
-            setupMiniMiniGame2();
+            setupMiniMiniGame2(other.gameObject);
         }
     }
 
-    private void setupMiniMiniGame2()
+    private void setupMiniMiniGame2(GameObject i_player)
     {
         //freeze the player movement.
+        player = i_player;
         player.GetComponent<Movement>().enabled = false;
-        player.SetActive(false);
-        //place the camera perfectly to view all the important objects in the scene.
-        camera.SetActive(false);
-        //DialogManager.GetComponent<TextBoxManager>().isActive = true;
-        myCam.SetActive(true);
+        player.GetComponent<MiniMiniGameController>().enabled = true;
         isSetup = true;
 
     }
@@ -70,15 +65,10 @@ public class BeginMiniMiniGame2 : MonoBehaviour
         }
     }
 
-    private void endMiniMiniGame2()
+    public  void endMiniMiniGame2()
     {
         player.GetComponent<Movement>().enabled = true;
-        player.SetActive(true);
-        //place the camera perfectly to view all the important objects in the scene.
-        camera.SetActive(true);
-        //DialogManager.GetComponent<TextBoxManager>().isActive = true;
-        GameObject.Find("MMG2Camera").SetActive(false);
-        GameObject.Find("miniminigame2").SetActive(false);
+        player.GetComponent<MiniMiniGameController>().enabled = false;
         isSetup = false;
     }
 }

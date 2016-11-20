@@ -3,30 +3,29 @@ using System.Collections;
 using System;
 
 public class BeginMiniMiniGame : MonoBehaviour {
-    public GameObject player;
-    public GameObject camera;
     public GameObject dialogSystem;
-    public GameObject mmg2;
     bool Q1 = false, Q2 = false;
     public bool isSetup=false;
+    private GameObject m_player;
 	// Use this for initialization
 void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag.Equals("Player")){
-            setupMiniMiniGame1();
+            setupMiniMiniGame1(other.gameObject);
         }
     }
 
-    private void setupMiniMiniGame1()
+    private void setupMiniMiniGame1(GameObject player)
     {
+        m_player = player;
         //freeze the player movement.
         player.GetComponent<Movement>().enabled = false;
-        player.SetActive(false);
-       mmg2.SetActive(false);
+        player.GetComponent < MiniMiniGameController >().enabled= true;
+       //mmg2.SetActive(false);
         //place the camera perfectly to view all the important objects in the scene.
        //camera.SetActive(false);
         //DialogManager.GetComponent<TextBoxManager>().isActive = true;
-        GameObject.FindGameObjectWithTag("FirstPersonCamera").SetActive(true);
+       // GameObject.FindGameObjectWithTag("FirstPersonCamera").SetActive(true);
         isSetup = true;
        
     }
@@ -69,15 +68,14 @@ void OnTriggerEnter(Collider other)
         }
     }
 
-    private void endMiniMiniGame1()
+    public void endMiniMiniGame1()
     {
-        player.GetComponent<Movement>().enabled = true;
-        player.SetActive(true);
+        m_player.GetComponent<Movement>().enabled = true;
+        m_player.GetComponent<MiniMiniGameController>().enabled = false;
+
+        GetComponent<BoxCollider>().enabled = false;
         //place the camera perfectly to view all the important objects in the scene.
-        camera.SetActive(true);
         //DialogManager.GetComponent<TextBoxManager>().isActive = true;
-        GameObject.Find("MMG1Camera").SetActive(false);
-        GameObject.Find("miniminigame1").SetActive(false);
         isSetup = false;
     }
 }
