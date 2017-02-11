@@ -12,7 +12,6 @@ public class Painting : MonoBehaviour
 	void Start ()
     {
         crayonSet = GameObject.Find("Pencils");
-        selected = GameObject.FindWithTag("Selected");
         rainbow = GameObject.Find("Rainbow");
 	}
 	
@@ -32,6 +31,7 @@ public class Painting : MonoBehaviour
             {
                 coloredArcs++;
             }
+            selected = GameObject.FindWithTag("Selected");
             GetComponent<SpriteRenderer>().color = selected.GetComponent<SpriteRenderer>().color;
         }
     }

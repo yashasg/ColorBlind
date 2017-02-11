@@ -10,6 +10,7 @@ public class BeginMiniMiniGame : MonoBehaviour {
 	// Use this for initialization
 void OnTriggerEnter(Collider other)
     {
+            
         if (other.gameObject.tag.Equals("Player")){
             setupMiniMiniGame1(other.gameObject);
         }
@@ -18,14 +19,9 @@ void OnTriggerEnter(Collider other)
     private void setupMiniMiniGame1(GameObject player)
     {
         m_player = player;
-        //freeze the player movement.
         player.GetComponent<Movement>().enabled = false;
         player.GetComponent < MiniMiniGameController >().enabled= true;
-       //mmg2.SetActive(false);
-        //place the camera perfectly to view all the important objects in the scene.
-       //camera.SetActive(false);
-        //DialogManager.GetComponent<TextBoxManager>().isActive = true;
-       // GameObject.FindGameObjectWithTag("FirstPersonCamera").SetActive(true);
+        player.transform.rotation = Quaternion.Euler(0, 0, 0);
         isSetup = true;
        
     }
@@ -74,8 +70,6 @@ void OnTriggerEnter(Collider other)
         m_player.GetComponent<MiniMiniGameController>().enabled = false;
 
         GetComponent<BoxCollider>().enabled = false;
-        //place the camera perfectly to view all the important objects in the scene.
-        //DialogManager.GetComponent<TextBoxManager>().isActive = true;
         isSetup = false;
     }
 }

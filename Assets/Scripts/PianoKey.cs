@@ -12,9 +12,7 @@ public class PianoKey : MonoBehaviour {
     private List<GameObject> notes = new List<GameObject>();
     private float hitPos;
     // This could be public
-    private float hitPanelOffset = 0.2f;
     private float noteHalfLen = 0.15f;
-    private float clickRange = 0.5f;
 
     // Scores
     private int numOfNotes = 0;

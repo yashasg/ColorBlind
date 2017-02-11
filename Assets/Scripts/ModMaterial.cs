@@ -16,7 +16,6 @@ public enum ModMatrix { NORMAL, PROTANOPIA, PROTANOMALY, DEUTERANOPIA, TRITANOPI
 public class ModMaterial: MonoBehaviour
 {
     List<Material> mats;
-    List<Color> matColors;
 
     List<GameObject> objs;
 

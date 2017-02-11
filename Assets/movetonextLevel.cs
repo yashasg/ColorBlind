@@ -5,8 +5,6 @@ public class movetonextLevel : MonoBehaviour {
 
     // Use this for initialization
     public GameObject player;
-
-    bool Q1 = false, Q2 = false;
     public bool isSetup = false;
 
 

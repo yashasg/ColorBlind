@@ -10,13 +10,12 @@ public class MiniMiniGameController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = (Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), 1f));
+        
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = GetComponentInChildren<Camera>().ScreenPointToRay(Input.mousePosition);
