@@ -17,7 +17,7 @@ public class ModMaterial: MonoBehaviour
 {
     List<Material> mats;
 
-    List<GameObject> objs;
+    List<MeshRenderer> objs;
 
     public ModMatrix selectedMatrix;
 
@@ -34,16 +34,16 @@ public class ModMaterial: MonoBehaviour
 
     void Start()
     {
-        objs = new List<GameObject>();
-        foreach ( GameObject gameobj in FindObjectsOfType(typeof(GameObject)))
+        objs = new List<MeshRenderer>();
+        foreach (MeshRenderer mesh in FindObjectsOfType(typeof(MeshRenderer)))
         {
-            objs.Add(gameobj);
+            objs.Add(mesh);
         }
 
         
         mats = new List<Material>();
 
-        foreach (GameObject obj in objs)
+        foreach (MeshRenderer obj in objs)
         {   
             if (obj.GetComponent<Renderer>())
             {
@@ -140,7 +140,7 @@ public class ModMaterial: MonoBehaviour
 
     }
    
-    void RemoveColor(ModMatrix mat,GameObject obj)
+    void RemoveColor(ModMatrix mat,MeshRenderer obj)
     {
         Matrix4x4 matrix = new Matrix4x4();
 

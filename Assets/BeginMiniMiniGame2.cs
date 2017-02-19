@@ -4,7 +4,7 @@ using System;
 
 public class BeginMiniMiniGame2 : MonoBehaviour
 {
-    private GameObject player;
+    private GameObject m_player;
     public GameObject dialogSystem;
     bool Q1 = false, Q2 = false;
     public bool isSetup = false;
@@ -20,9 +20,11 @@ public class BeginMiniMiniGame2 : MonoBehaviour
     private void setupMiniMiniGame2(GameObject i_player)
     {
         //freeze the player movement.
-        player = i_player;
-        player.GetComponent<Movement>().enabled = false;
-        player.GetComponent<MiniMiniGameController>().enabled = true;
+        m_player = i_player;
+        i_player.GetComponent<Movement>().enabled = false;
+        i_player.GetComponent<MiniMiniGameController>().enabled = true;
+        i_player.GetComponent<Animator>().enabled = false;
+        Camera.main.transform.rotation = Quaternion.Euler(0, 0, 0);
         isSetup = true;
 
     }
@@ -67,8 +69,11 @@ public class BeginMiniMiniGame2 : MonoBehaviour
 
     public  void endMiniMiniGame2()
     {
-        player.GetComponent<Movement>().enabled = true;
-        player.GetComponent<MiniMiniGameController>().enabled = false;
+        m_player.GetComponent<Movement>().enabled = true;
+        m_player.GetComponent<MiniMiniGameController>().enabled = false;
+        m_player.GetComponent<Animator>().enabled = true;
+        Camera.main.transform.rotation = m_player.transform.rotation;
+        Destroy(this.gameObject);
         isSetup = false;
     }
 }

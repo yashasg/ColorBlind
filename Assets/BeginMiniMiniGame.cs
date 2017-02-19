@@ -21,7 +21,8 @@ void OnTriggerEnter(Collider other)
         m_player = player;
         player.GetComponent<Movement>().enabled = false;
         player.GetComponent < MiniMiniGameController >().enabled= true;
-        player.transform.rotation = Quaternion.Euler(0, 0, 0);
+        player.GetComponent<Animator>().enabled = false;
+        Camera.main.transform.rotation = Quaternion.Euler(0, 0, 0);
         isSetup = true;
        
     }
@@ -58,18 +59,16 @@ void OnTriggerEnter(Collider other)
             {
             dialogSystem.GetComponent<TextBoxManager>().Play(1, 1);
              }
-        if (Q1 && Q2)
-        {
-            endMiniMiniGame1();
-        }
     }
 
     public void endMiniMiniGame1()
     {
         m_player.GetComponent<Movement>().enabled = true;
         m_player.GetComponent<MiniMiniGameController>().enabled = false;
+        m_player.GetComponent<Animator>().enabled = true;
+        Camera.main.transform.rotation = m_player.transform.rotation;
+        Destroy(this.gameObject);
+            isSetup = false;
 
-        GetComponent<BoxCollider>().enabled = false;
-        isSetup = false;
     }
 }
